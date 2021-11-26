@@ -1,7 +1,7 @@
 # CodeStreamWithCiscoACI
 This repository contains information around setting up Cisco ACI simulator and using Code Stream to create pipeline tasks for various automation requirements
 
-Pre-req: Knowledge on 101 on REST, Code Stream and Cisco ACI and ofcourse vSphere knowledge  
+Pre-req: Knowledge on REST(level 101), Code Stream(Level 101) and Cisco ACI(Level 101) and ofcourse vSphere knowledge  
 
 
 Steps to setup ACi Simulator for REST pipeline tasks

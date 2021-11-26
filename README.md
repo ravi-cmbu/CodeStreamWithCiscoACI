@@ -17,6 +17,6 @@ Steps to setup ACI Simulator for REST pipeline tasks
    https://www.youtube.com/watch?v=_tmxdSkgZ3U
    In the above video, VMware workstation is used to import the ova, you might want to use vSphere environment to connect to Code Stream and create ACI pipelines.
 
-3. In Code Stream, configure variables for the IP address/login URL
+3. In Code Stream, configure variables for the IP address/login URL for the ACI simulator, its the Out of Band Network IP Address.
 
 4. Import the yaml for Code Stream, change the IP address and other details accordingly. Start with End to End Pipeline

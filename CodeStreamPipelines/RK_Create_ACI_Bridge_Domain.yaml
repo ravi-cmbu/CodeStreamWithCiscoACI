@@ -1,0 +1,89 @@
+---
+project: IndiaLabs
+kind: PIPELINE
+name: RK_Create_ACI_Bridge_Domain
+icon: organization,left, is-pink
+enabled: true
+description: This pipeline create Bridge Domain in ACI environment
+concurrency: 10
+input:
+  bridegDomainDescription: ''
+  bridgeDomainAlias: ''
+  bridgeDomainName: ''
+  tenentName: ''
+  vrfName: ''
+_inputMeta:
+  bridgeDomainAlias:
+    mandatory: true
+    description: Please enter the Bridge Domain alias without any space or special characters
+  tenentName:
+    mandatory: true
+    description: Please enter the tenant name where this bridge has to be created
+  bridegDomainDescription:
+    mandatory: true
+    description: Please enter bridge domain description
+  bridgeDomainName:
+    mandatory: true
+    description: Please enter the bridge domain name, without spaces or special characters
+  vrfName:
+    mandatory: true
+    description: Enter the available VRF name in the tenant, without spaces or special characters
+workspace:
+  type: DOCKER
+  endpoint: ''
+  image: ''
+  registry: ''
+  path: ''
+  autoCloneForTrigger: false
+  limits:
+    memory: 512
+    cpu: 1.0
+stageOrder:
+- Stage0
+stages:
+  Stage0:
+    taskOrder:
+    - ACILogin
+    - createBridgeDomain
+    tasks:
+      ACILogin:
+        type: Pipeline
+        input:
+          pipeline: RK_ACI_Login
+          inputProperties: {
+            }
+      createBridgeDomain:
+        type: REST
+        input:
+          action: post
+          url: https://172.16.40.15/api/node/mo/uni/tn-${input.tenentName}/BD-${input.bridgeDomainName}.json
+          headers:
+            Accept: application/json
+            Content-Type: application/json
+            cookie: APIC-Cookie=${Stage0.ACILogin.output.outputProperties.APIC-cookie}
+          payload: |-
+            {
+             "fvBD": {
+              "attributes": {
+               "dn": "uni/tn-${input.tenentName}/BD-${input.bridgeDomainName}",
+               "mac": "00:22:BD:F8:19:FF",
+               "arpFlood": "true",
+               "name": "${input.bridgeDomainName}",
+               "nameAlias": "${input.bridgeDomainAlias}",
+               "descr": "${input.bridegDomainDescription}",
+               "rn": "BD-${input.bridgeDomainName}",
+               "status": "created"
+              },
+              "children": [
+               {
+                "fvRsCtx": {
+                 "attributes": {
+                  "tnFvCtxName": "${input.vrfName}",
+                  "status": "created,modified"
+                 },
+                 "children": []
+                }
+               }
+              ]
+             }
+            }

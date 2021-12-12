@@ -37,8 +37,8 @@ stages:
             {
               "aaaUser" : {
                 "attributes" : {
-                  "name" : "admin",
-                  "pwd" : "VMware1!"
+                  "name" : "adminusername",
+                  "pwd" : "xxpasswordxx"
                 }
               }
             }

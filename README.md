@@ -20,3 +20,5 @@ Steps to setup ACI Simulator for REST pipeline tasks
 3. In Code Stream, configure variables for the IP address/login URL for the ACI simulator, its the Out of Band Network IP Address.
 
 4. Import the yaml for Code Stream, change the IP address and other details accordingly. Start with End to End Pipeline
+
+5. Please ensure your Code Stream, environment variables are as per your requirement.
